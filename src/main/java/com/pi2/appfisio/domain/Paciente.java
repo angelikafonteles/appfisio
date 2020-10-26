@@ -118,6 +118,14 @@ public class Paciente implements Serializable {
 		this.profissao = profissao;
 	}
 
+	public Set<String> getTelefones() {
+		return telefones;
+	}
+
+	public void setTelefones(Set<String> telefones) {
+		this.telefones = telefones;
+	}
+
 	public List<Endereco> getEnderecos() {
 		return enderecos;
 	}
