@@ -21,4 +21,5 @@ public class EspecialidadeResource {
 	public ResponseEntity<?> find(@PathVariable Integer id) {
 		Especialidade obj = service.buscar(id);		
 		return ResponseEntity.ok().body(obj);
-}	}
+	}	
+}

@@ -2,6 +2,7 @@ package com.pi2.appfisio;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.TimeZone;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -63,6 +64,7 @@ public class AppfisioApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
 		
 		Especialidade esp1 = new Especialidade(null, EspecialidadeMedica.TRAUMATOLOGIA);
 		Especialidade esp2 = new Especialidade(null, EspecialidadeMedica.NEUROLOGIA);

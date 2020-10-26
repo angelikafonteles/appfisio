@@ -17,6 +17,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.pi2.appfisio.domain.enums.Genero;
 
 @Entity
@@ -37,13 +39,16 @@ public class Paciente implements Serializable {
 	@CollectionTable(name="TELEFONE")
 	private Set<String> telefones = new HashSet<>();
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy="paciente")
 	private List<Endereco> enderecos = new ArrayList<>();
 	
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name="usuario_id")
 	private Usuario usuario;
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy="paciente")
 	private List<Anamnese> anamneses = new ArrayList<>();
 	

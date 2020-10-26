@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Anamnese implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -26,10 +28,12 @@ public class Anamnese implements Serializable{
 	private String queixaPrincipal;
 	private String observacoes;
 	
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name="paciente_id")
 	private Paciente paciente;
 	
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name="patologia_id")
 	private Patologia patologia;

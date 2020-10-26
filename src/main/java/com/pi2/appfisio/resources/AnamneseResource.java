@@ -21,4 +21,5 @@ public class AnamneseResource {
 	public ResponseEntity<?> find(@PathVariable Integer id) {
 		Anamnese obj = service.buscar(id);		
 		return ResponseEntity.ok().body(obj);
-}	}
+	}
+}

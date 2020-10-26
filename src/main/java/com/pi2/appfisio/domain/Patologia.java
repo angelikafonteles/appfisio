@@ -12,6 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Patologia implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -21,10 +24,12 @@ public class Patologia implements Serializable{
 	private Integer id;
 	private String nome;
 	
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name="especialidade_id")
 	private Especialidade especialidade;
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy="patologia")
 	private List<Anamnese> anamneses = new ArrayList<>();
 	

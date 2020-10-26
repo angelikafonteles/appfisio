@@ -21,4 +21,5 @@ public class PatologiaResource {
 	public ResponseEntity<?> find(@PathVariable Integer id) {
 		Patologia obj = service.buscar(id);		
 		return ResponseEntity.ok().body(obj);
-}	}
+	}	
+}

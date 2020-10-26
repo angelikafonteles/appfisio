@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Usuario implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -25,6 +27,7 @@ public class Usuario implements Serializable{
 	private String email;
 	private String senha;
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy="usuario")
 	private List<Paciente> pacientes = new ArrayList<>();
 	

@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.pi2.appfisio.domain.enums.EspecialidadeMedica;
 
 @Entity
@@ -21,6 +22,7 @@ public class Especialidade implements Serializable{
 	private Integer id;
 	private Integer especialidadeMedica;
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy="especialidade")
 	private List<Patologia> patologias = new ArrayList<>();
 	
