@@ -11,25 +11,44 @@ import com.pi2.appfisio.domain.Cidade;
 import com.pi2.appfisio.domain.Especialidade;
 import com.pi2.appfisio.domain.Estado;
 import com.pi2.appfisio.domain.Patologia;
+import com.pi2.appfisio.domain.enums.EspecialidadeMedica;
+import com.pi2.appfisio.repositories.AnamneseRepository;
 import com.pi2.appfisio.repositories.CidadeRepository;
+import com.pi2.appfisio.repositories.EnderecoRepository;
 import com.pi2.appfisio.repositories.EspecialidadeRepository;
 import com.pi2.appfisio.repositories.EstadoRepository;
+import com.pi2.appfisio.repositories.PacienteRepository;
 import com.pi2.appfisio.repositories.PatologiaRepository;
+import com.pi2.appfisio.repositories.UsuarioRepository;
 
 @SpringBootApplication
 public class AppfisioApplication implements CommandLineRunner {
 	
 	@Autowired
-	private EspecialidadeRepository especialidadeRepository;
+	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	private PacienteRepository pacienteRepository;
+	
+	@Autowired
+	private AnamneseRepository anamneseRepository;
 	
 	@Autowired
 	private PatologiaRepository patologiaRepository;
+	
+	@Autowired
+	private EspecialidadeRepository especialidadeRepository;
+	
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 	
 	@Autowired
 	private CidadeRepository cidadeRepository;
 	
 	@Autowired
 	private EstadoRepository estadoRepository;
+	
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(AppfisioApplication.class, args);
@@ -38,8 +57,8 @@ public class AppfisioApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		
-		Especialidade esp1 = new Especialidade(null, "Traumatologia");
-		Especialidade esp2 = new Especialidade(null, "Neurologia");
+		Especialidade esp1 = new Especialidade(null, EspecialidadeMedica.TRAUMATOLOGIA);
+		Especialidade esp2 = new Especialidade(null, EspecialidadeMedica.NEUROLOGIA);
 		
 		Patologia p1 = new Patologia(null, "AVC", esp2);
 		Patologia p2 = new Patologia(null, "Parkinson", esp2);

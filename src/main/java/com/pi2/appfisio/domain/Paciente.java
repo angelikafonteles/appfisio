@@ -3,8 +3,12 @@ package com.pi2.appfisio.domain;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,8 +17,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.pi2.appfisio.domain.enums.Genero;
+
 @Entity
-public class Paciente implements Serializable{
+public class Paciente implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -23,10 +29,16 @@ public class Paciente implements Serializable{
 	private String cpf;
 	private String nome;
 	private Date dataNascimento;
-	private String genero;
+	private Integer genero;
 	private String email;
-	private String telefone;
 	private String profissao;
+	
+	@ElementCollection
+	@CollectionTable(name="TELEFONE")
+	private Set<String> telefones = new HashSet<>();
+	
+	@OneToMany(mappedBy="paciente")
+	private List<Endereco> enderecos = new ArrayList<>();
 	
 	@ManyToOne
 	@JoinColumn(name="usuario_id")
@@ -38,16 +50,14 @@ public class Paciente implements Serializable{
 	public Paciente() {
 	}
 
-	public Paciente(Integer id, String cpf, String nome, Date dataNascimento, String genero, String email,
-			String telefone, String profissao, Usuario usuario) {
+	public Paciente(Integer id, String cpf, String nome, Date dataNascimento, Genero genero, String email, String profissao, Usuario usuario) {
 		super();
 		this.id = id;
 		this.cpf = cpf;
 		this.nome = nome;
 		this.dataNascimento = dataNascimento;
-		this.genero = genero;
+		this.genero = genero.getCod();
 		this.email = email;
-		this.telefone = telefone;
 		this.profissao = profissao;
 		this.usuario = usuario;
 	}
@@ -84,12 +94,12 @@ public class Paciente implements Serializable{
 		this.dataNascimento = dataNascimento;
 	}
 
-	public String getGenero() {
-		return genero;
+	public Genero getGenero() {
+		return Genero.toEnum(genero);
 	}
 
-	public void setGenero(String genero) {
-		this.genero = genero;
+	public void setGenero(Genero genero) {
+		this.genero = genero.getCod();
 	}
 
 	public String getEmail() {
@@ -100,20 +110,20 @@ public class Paciente implements Serializable{
 		this.email = email;
 	}
 
-	public String getTelefone() {
-		return telefone;
-	}
-
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
-	}
-
 	public String getProfissao() {
 		return profissao;
 	}
 
 	public void setProfissao(String profissao) {
 		this.profissao = profissao;
+	}
+
+	public List<Endereco> getEnderecos() {
+		return enderecos;
+	}
+
+	public void setEnderecos(List<Endereco> enderecos) {
+		this.enderecos = enderecos;
 	}
 
 	public Usuario getUsuario() {

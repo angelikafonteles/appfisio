@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.pi2.appfisio.domain.enums.EspecialidadeMedica;
+
 @Entity
 public class Especialidade implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -17,7 +19,7 @@ public class Especialidade implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	private String nome;
+	private Integer especialidadeMedica;
 	
 	@OneToMany(mappedBy="especialidade")
 	private List<Patologia> patologias = new ArrayList<>();
@@ -25,10 +27,10 @@ public class Especialidade implements Serializable{
 	public Especialidade() {
 	}
 	
-	public Especialidade(Integer id, String nome) {
+	public Especialidade(Integer id, EspecialidadeMedica especialidadeMedica) {
 		super();
 		this.id = id;
-		this.nome = nome;
+		this.especialidadeMedica = especialidadeMedica.getCod();
 	}
 
 	public Integer getId() {
@@ -39,12 +41,12 @@ public class Especialidade implements Serializable{
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public EspecialidadeMedica getEspecialidadeMedica() {
+		return EspecialidadeMedica.toEnum(especialidadeMedica);
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setEspecialidadeMedica(EspecialidadeMedica especialidadeMedica) {
+		this.especialidadeMedica = especialidadeMedica.getCod();
 	}
 
 	public List<Patologia> getPatologias() {
