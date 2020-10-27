@@ -18,7 +18,7 @@ public class Anamnese implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private String id;
+	private Integer id;
 	private Date dataDaFicha;
 	private String pressaoArterial;
 	private String frequenciaCardiaca;
@@ -38,7 +38,7 @@ public class Anamnese implements Serializable{
 	@JoinColumn(name="patologia_id")
 	private Patologia patologia;
 
-	public Anamnese(String id, Date dataDaFicha, String pressaoArterial, String frequenciaCardiaca,
+	public Anamnese(Integer id, Date dataDaFicha, String pressaoArterial, String frequenciaCardiaca,
 			String historicoFamiliar, String historiaPatologiaPregressa, String historicoDoencaAtual,
 			String queixaPrincipal, String observacoes, Paciente paciente, Patologia patologia) {
 		super();
@@ -55,11 +55,11 @@ public class Anamnese implements Serializable{
 		this.patologia = patologia;
 	}
 
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

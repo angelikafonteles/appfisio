@@ -19,7 +19,7 @@ public class Usuario implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private String id;
+	private Integer id;
 	private String nome;
 	private String cpf;
 	private Date dataNascimento;
@@ -34,7 +34,7 @@ public class Usuario implements Serializable{
 	public Usuario() {
 	}
 
-	public Usuario(String id, String nome, String cpf, Date dataNascimento, String orgaoDeClasse, String email,
+	public Usuario(Integer id, String nome, String cpf, Date dataNascimento, String orgaoDeClasse, String email,
 			String senha) {
 		super();
 		this.id = id;
@@ -46,11 +46,11 @@ public class Usuario implements Serializable{
 		this.senha = senha;
 	}
 
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
