@@ -62,16 +62,7 @@ public class AppfisioApplication implements CommandLineRunner {
 		SpringApplication.run(AppfisioApplication.class, args);
 	}
 	
-	@Configuration
-	@EnableWebMvc
-	public class WebConfig extends WebMvcConfigurerAdapter {
-	
-		@Override
-		public void addCorsMappings(CorsRegistry registry) {
-			registry.addMapping("/**")
-				.allowedMethods("GET", "POST", "OPTIONS", "PUT", "PATCH", "DELETE");
-		}
-	}
+
 
 	@Override
 	public void run(String... args) throws Exception {
