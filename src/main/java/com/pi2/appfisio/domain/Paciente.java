@@ -16,9 +16,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pi2.appfisio.domain.enums.Genero;
 
 @Entity
@@ -30,6 +31,8 @@ public class Paciente implements Serializable {
 	private Integer id;
 	private String cpf;
 	private String nome;
+	
+	@JsonFormat(pattern="dd/MM/yyyy")
 	private Date dataNascimento;
 	private Integer genero;
 	private String email;
@@ -39,23 +42,25 @@ public class Paciente implements Serializable {
 	@CollectionTable(name="TELEFONE")
 	private Set<String> telefones = new HashSet<>();
 	
-	@JsonManagedReference
-	@OneToMany(mappedBy="paciente")
-	private List<Endereco> enderecos = new ArrayList<>();
+	@OneToOne
+	@JoinColumn(name="endereco_id")
+	private Endereco endereco;
 	
-	@JsonBackReference
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="usuario_id")
 	private Usuario usuario;
 	
-	@JsonManagedReference
 	@OneToMany(mappedBy="paciente")
 	private List<Anamnese> anamneses = new ArrayList<>();
+	
+	@OneToMany(mappedBy="paciente")
+	private List<Sessao> sessoes = new ArrayList<>();
 	
 	public Paciente() {
 	}
 
-	public Paciente(Integer id, String cpf, String nome, Date dataNascimento, Genero genero, String email, String profissao, Usuario usuario) {
+	public Paciente(Integer id, String cpf, String nome, Date dataNascimento, Genero genero, String email, String profissao, Endereco endereco, Usuario usuario) {
 		super();
 		this.id = id;
 		this.cpf = cpf;
@@ -64,6 +69,7 @@ public class Paciente implements Serializable {
 		this.genero = genero.getCod();
 		this.email = email;
 		this.profissao = profissao;
+		this.endereco= endereco;
 		this.usuario = usuario;
 	}
 
@@ -122,6 +128,14 @@ public class Paciente implements Serializable {
 	public void setProfissao(String profissao) {
 		this.profissao = profissao;
 	}
+	
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
 
 	public Set<String> getTelefones() {
 		return telefones;
@@ -129,14 +143,6 @@ public class Paciente implements Serializable {
 
 	public void setTelefones(Set<String> telefones) {
 		this.telefones = telefones;
-	}
-
-	public List<Endereco> getEnderecos() {
-		return enderecos;
-	}
-
-	public void setEnderecos(List<Endereco> enderecos) {
-		this.enderecos = enderecos;
 	}
 
 	public Usuario getUsuario() {
@@ -153,6 +159,14 @@ public class Paciente implements Serializable {
 
 	public void setAnamneses(List<Anamnese> anamneses) {
 		this.anamneses = anamneses;
+	}
+
+	public List<Sessao> getSessoes() {
+		return sessoes;
+	}
+
+	public void setSessoes(List<Sessao> sessoes) {
+		this.sessoes = sessoes;
 	}
 
 	@Override

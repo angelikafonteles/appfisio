@@ -10,7 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Anamnese implements Serializable{
@@ -19,6 +20,8 @@ public class Anamnese implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
+	
+	@JsonFormat(pattern="dd/MM/yyyy")
 	private Date dataDaFicha;
 	private String pressaoArterial;
 	private String frequenciaCardiaca;
@@ -28,15 +31,17 @@ public class Anamnese implements Serializable{
 	private String queixaPrincipal;
 	private String observacoes;
 	
-	@JsonBackReference
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="paciente_id")
 	private Paciente paciente;
 	
-	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name="patologia_id")
 	private Patologia patologia;
+	
+	public Anamnese() {
+	}
 
 	public Anamnese(Integer id, Date dataDaFicha, String pressaoArterial, String frequenciaCardiaca,
 			String historicoFamiliar, String historiaPatologiaPregressa, String historicoDoencaAtual,

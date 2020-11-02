@@ -1,17 +1,11 @@
 package com.pi2.appfisio.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.pi2.appfisio.domain.enums.EspecialidadeMedica;
 
 @Entity
 public class Especialidade implements Serializable{
@@ -20,19 +14,15 @@ public class Especialidade implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	private Integer especialidadeMedica;
-	
-	@JsonManagedReference
-	@OneToMany(mappedBy="especialidade")
-	private List<Patologia> patologias = new ArrayList<>();
+	private String nome;
 	
 	public Especialidade() {
 	}
 	
-	public Especialidade(Integer id, EspecialidadeMedica especialidadeMedica) {
+	public Especialidade(Integer id, String nome) {
 		super();
 		this.id = id;
-		this.especialidadeMedica = especialidadeMedica.getCod();
+		this.nome = nome;
 	}
 
 	public Integer getId() {
@@ -43,20 +33,12 @@ public class Especialidade implements Serializable{
 		this.id = id;
 	}
 
-	public EspecialidadeMedica getEspecialidadeMedica() {
-		return EspecialidadeMedica.toEnum(especialidadeMedica);
+	public String getEspecialidade() {
+		return nome;
 	}
 
-	public void setEspecialidadeMedica(EspecialidadeMedica especialidadeMedica) {
-		this.especialidadeMedica = especialidadeMedica.getCod();
-	}
-
-	public List<Patologia> getPatologias() {
-		return patologias;
-	}
-
-	public void setPatologias(List<Patologia> patologias) {
-		this.patologias = patologias;
+	public void setEspecialidade(String nome) {
+		this.nome = nome;
 	}
 	
 	@Override

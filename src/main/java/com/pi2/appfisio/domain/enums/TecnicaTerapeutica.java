@@ -15,7 +15,8 @@ public enum TecnicaTerapeutica {
 	EXERCICIOSCALISTENICOS(11, "Exercícios calistênicos"),
 	ONDASCURTAS(12, "Ondas curtas"),
 	TENSCONVENCIONAL(13, "TENS convencional"),
-	TENSBURST(14, "TENS burst");
+	TENSBURST(14, "TENS burst"),
+	US(15, "US");
 	
 	private int cod;
 	private String descricao;

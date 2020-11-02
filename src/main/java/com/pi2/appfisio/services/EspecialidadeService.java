@@ -1,5 +1,6 @@
 package com.pi2.appfisio.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +16,23 @@ public class EspecialidadeService {
 	@Autowired
 	private EspecialidadeRepository repo;
 	
-	public Especialidade buscar(Integer id) {
+	public Especialidade findById(Integer id) {
 		
 		Optional<Especialidade> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Especialidade.class.getName()));
 	}
-		
+	
+	public List<Especialidade> findAll(){
+		return repo.findAll();
+	}
+	
+	public Especialidade save(Especialidade obj){
+        return repo.save(obj);
+    }
+	
+	public void deleteById(Integer id) {
+	
+		repo.deleteById(id);
+	}
 }
