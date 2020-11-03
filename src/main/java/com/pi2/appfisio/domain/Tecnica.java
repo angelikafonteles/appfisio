@@ -2,43 +2,48 @@ package com.pi2.appfisio.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.pi2.appfisio.domain.enums.TecnicaTerapeutica;
 
 @Entity
-public class Patologia implements Serializable{
+public class Tecnica implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	private String nome;
-	
-	@ManyToOne
-	@JoinColumn(name="especialidade_id")
-	private Especialidade especialidade;
+	private Integer nome;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy="patologia")
-	private List<Anamnese> anamneses = new ArrayList<>();
+	@OneToMany(mappedBy="id.tecnica")
+	private Set<CondutaTecnica> tecnicas = new HashSet<>();
 	
-	public Patologia() {
+	public Tecnica() {
 	}
 
-	public Patologia(Integer id, String nome, Especialidade especialidade) {
+	public Tecnica(Integer id, TecnicaTerapeutica nome) {
 		super();
 		this.id = id;
-		this.nome = nome;
-		this.especialidade = especialidade;
+		this.nome = nome.getCod();
+	}
+	
+	@JsonIgnore
+	public List<Conduta> getCondutas(){
+		List<Conduta> lista = new ArrayList<>();
+		for(CondutaTecnica n : tecnicas) {
+			lista.add(n.getConduta());
+		}
+		return lista;
 	}
 
 	public Integer getId() {
@@ -49,28 +54,20 @@ public class Patologia implements Serializable{
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public TecnicaTerapeutica getTecnica() {
+		return TecnicaTerapeutica.toEnum(nome);
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setTecnica(TecnicaTerapeutica nome) {
+		this.nome = nome.getCod();
 	}
 
-	public Especialidade getEspecialidade() {
-		return especialidade;
+	public Set<CondutaTecnica> getTecnicas() {
+		return tecnicas;
 	}
 
-	public void setEspecialidade(Especialidade especialidade) {
-		this.especialidade = especialidade;
-	}
-
-	public List<Anamnese> getAnamneses() {
-		return anamneses;
-	}
-
-	public void setAnamneses(List<Anamnese> anamneses) {
-		this.anamneses = anamneses;
+	public void setTecnicas(Set<CondutaTecnica> tecnicas) {
+		this.tecnicas = tecnicas;
 	}
 
 	@Override
@@ -89,7 +86,7 @@ public class Patologia implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Patologia other = (Patologia) obj;
+		Tecnica other = (Tecnica) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -97,5 +94,5 @@ public class Patologia implements Serializable{
 			return false;
 		return true;
 	}
-	
+
 }

@@ -5,13 +5,16 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Usuario implements Serializable{
@@ -22,28 +25,29 @@ public class Usuario implements Serializable{
 	private Integer id;
 	private String nome;
 	private String cpf;
+	
+	@JsonFormat(pattern="dd/MM/yyyy")
 	private Date dataNascimento;
 	private String orgaoDeClasse;
-	private String email;
-	private String senha;
 	
-	@JsonManagedReference
+	@JsonIgnore
+	@OneToOne(cascade=CascadeType.ALL, mappedBy="usuario")
+	private Login login;
+	
 	@OneToMany(mappedBy="usuario")
 	private List<Paciente> pacientes = new ArrayList<>();
 	
 	public Usuario() {
 	}
 
-	public Usuario(Integer id, String nome, String cpf, Date dataNascimento, String orgaoDeClasse, String email,
-			String senha) {
+	public Usuario(Integer id, String nome, String cpf, Date dataNascimento, String orgaoDeClasse, Login login) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
 		this.dataNascimento = dataNascimento;
 		this.orgaoDeClasse = orgaoDeClasse;
-		this.email = email;
-		this.senha = senha;
+		this.login = login;
 	}
 
 	public Integer getId() {
@@ -86,22 +90,14 @@ public class Usuario implements Serializable{
 		this.orgaoDeClasse = orgaoDeClasse;
 	}
 
-	public String getEmail() {
-		return email;
+	public Login getLogin() {
+		return login;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setLogin(Login login) {
+		this.login = login;
 	}
 
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-	
 	public List<Paciente> getPacientes() {
 		return pacientes;
 	}

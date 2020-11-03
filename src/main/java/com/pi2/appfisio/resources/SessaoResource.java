@@ -12,31 +12,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pi2.appfisio.domain.Anamnese;
-import com.pi2.appfisio.services.AnamneseService;
+import com.pi2.appfisio.domain.Sessao;
+import com.pi2.appfisio.services.SessaoService;
 
 @RestController
-@RequestMapping(value = "anamneses")
-public class AnamneseResource {
+@RequestMapping(value = "sessoes")
+public class SessaoResource {
 	
 	@Autowired
-	private AnamneseService service;
+	private SessaoService service;
 
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) {
-		Anamnese obj = service.findById(id);		
+		Sessao obj = service.findById(id);		
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<Anamnese>> findAll(){
-		List<Anamnese> list = service.findAll();
+	public ResponseEntity<List<Sessao>> findAll(){
+		List<Sessao> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 	
 	@PostMapping
-	public ResponseEntity<Anamnese> createNew(@RequestBody Anamnese obj) {
-	    Anamnese savedObj = service.save(obj);
+	public ResponseEntity<Sessao> createNew(@RequestBody Sessao obj) {
+	    Sessao savedObj = service.save(obj);
 	    return ResponseEntity.ok(savedObj);
 	}
 	
@@ -47,8 +47,8 @@ public class AnamneseResource {
 	}
 	
 	@RequestMapping(value="/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update(@RequestBody Anamnese anamnese, @PathVariable Integer id){
-		Anamnese obj = service.fromAnamnese(anamnese);
+	public ResponseEntity<Void> update(@RequestBody Sessao sessao, @PathVariable Integer id){
+		Sessao obj = service.fromSessao(sessao);
 		obj.setId(id);
 		obj = service.updateById(obj);
 		return ResponseEntity.noContent().build();

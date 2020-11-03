@@ -1,10 +1,7 @@
 package com.pi2.appfisio.resources;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,31 +9,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pi2.appfisio.domain.Anamnese;
-import com.pi2.appfisio.services.AnamneseService;
+import com.pi2.appfisio.domain.Login;
+import com.pi2.appfisio.services.LoginService;
 
 @RestController
-@RequestMapping(value = "anamneses")
-public class AnamneseResource {
+@RequestMapping(value = "logins")
+public class LoginResource {
 	
 	@Autowired
-	private AnamneseService service;
+	private LoginService service;
 
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) {
-		Anamnese obj = service.findById(id);		
+		Login obj = service.findById(id);		
 		return ResponseEntity.ok().body(obj);
 	}
 	
-	@GetMapping
-	public ResponseEntity<List<Anamnese>> findAll(){
-		List<Anamnese> list = service.findAll();
-		return ResponseEntity.ok().body(list);
-	}
-	
 	@PostMapping
-	public ResponseEntity<Anamnese> createNew(@RequestBody Anamnese obj) {
-	    Anamnese savedObj = service.save(obj);
+	public ResponseEntity<Login> createNew(@RequestBody Login obj) {
+	    Login savedObj = service.save(obj);
 	    return ResponseEntity.ok(savedObj);
 	}
 	
@@ -45,12 +36,5 @@ public class AnamneseResource {
 		service.deleteById(id);
 		return ResponseEntity.noContent().build();
 	}
-	
-	@RequestMapping(value="/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update(@RequestBody Anamnese anamnese, @PathVariable Integer id){
-		Anamnese obj = service.fromAnamnese(anamnese);
-		obj.setId(id);
-		obj = service.updateById(obj);
-		return ResponseEntity.noContent().build();
-	}
+
 }

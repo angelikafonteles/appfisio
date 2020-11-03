@@ -12,31 +12,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pi2.appfisio.domain.Anamnese;
-import com.pi2.appfisio.services.AnamneseService;
+import com.pi2.appfisio.domain.Conduta;
+import com.pi2.appfisio.services.CondutaService;
 
 @RestController
-@RequestMapping(value = "anamneses")
-public class AnamneseResource {
+@RequestMapping(value = "condutas")
+public class CondutaResource {
 	
 	@Autowired
-	private AnamneseService service;
+	private CondutaService service;
 
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) {
-		Anamnese obj = service.findById(id);		
+		Conduta obj = service.findById(id);		
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<Anamnese>> findAll(){
-		List<Anamnese> list = service.findAll();
+	public ResponseEntity<List<Conduta>> findAll(){
+		List<Conduta> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 	
 	@PostMapping
-	public ResponseEntity<Anamnese> createNew(@RequestBody Anamnese obj) {
-	    Anamnese savedObj = service.save(obj);
+	public ResponseEntity<Conduta> createNew(@RequestBody Conduta obj) {
+	    Conduta savedObj = service.save(obj);
 	    return ResponseEntity.ok(savedObj);
 	}
 	
@@ -47,10 +47,11 @@ public class AnamneseResource {
 	}
 	
 	@RequestMapping(value="/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update(@RequestBody Anamnese anamnese, @PathVariable Integer id){
-		Anamnese obj = service.fromAnamnese(anamnese);
+	public ResponseEntity<Void> update(@RequestBody Conduta conduta, @PathVariable Integer id){
+		Conduta obj = service.fromConduta(conduta);
 		obj.setId(id);
 		obj = service.updateById(obj);
 		return ResponseEntity.noContent().build();
 	}
+
 }
