@@ -8,6 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.pi2.appfisio.domain.Anamnese;
 import com.pi2.appfisio.domain.Cidade;
@@ -40,31 +44,31 @@ import com.pi2.appfisio.repositories.UsuarioRepository;
 
 @SpringBootApplication
 public class AppfisioApplication implements CommandLineRunner {
-	
+
 	@Autowired
 	private LoginRepository loginRepository;
 	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
-	
+
 	@Autowired
 	private PacienteRepository pacienteRepository;
-	
+
 	@Autowired
 	private AnamneseRepository anamneseRepository;
-	
+
 	@Autowired
 	private PatologiaRepository patologiaRepository;
-	
+
 	@Autowired
 	private EspecialidadeRepository especialidadeRepository;
-	
+
 	@Autowired
 	private EnderecoRepository enderecoRepository;
-	
+
 	@Autowired
 	private CidadeRepository cidadeRepository;
-	
+
 	@Autowired
 	private EstadoRepository estadoRepository;
 	
@@ -83,10 +87,21 @@ public class AppfisioApplication implements CommandLineRunner {
 	public static void main(String[] args) {
 		SpringApplication.run(AppfisioApplication.class, args);
 	}
+	
+	@Configuration
+	@EnableWebMvc
+	public class WebConfig extends WebMvcConfigurerAdapter {
+
+		@Override
+		public void addCorsMappings(CorsRegistry registry) {
+			registry.addMapping("/**")
+				.allowedMethods("GET", "POST", "OPTIONS", "PUT", "PATCH", "DELETE");
+		}
+	}
 
 	@Override
 	public void run(String... args) throws Exception {
-		
+
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
 		
@@ -100,10 +115,10 @@ public class AppfisioApplication implements CommandLineRunner {
 		
 		especialidadeRepository.saveAll(Arrays.asList(esp1, esp2));
 		patologiaRepository.saveAll(Arrays.asList(p1, p2, p3, p4));
-		
+
 		Estado est1 = new Estado(null, "Pernambuco");
 		Estado est2 = new Estado(null, "Galaxy");
-		
+
 		Cidade c1 = new Cidade(null, "Recife", est1);
 		Cidade c2 = new Cidade(null, "Olinda", est1);
 		Cidade c3 = new Cidade(null, "GA", est2);
