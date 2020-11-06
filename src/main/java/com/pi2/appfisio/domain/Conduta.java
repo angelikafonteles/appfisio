@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -27,23 +29,30 @@ public class Conduta implements Serializable {
 	@OneToOne(cascade=CascadeType.ALL, mappedBy="conduta")
 	private Sessao sessao;
 	
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name="patologia_id")
+	private Patologia patologia;
+	
 	@OneToMany(mappedBy="id.conduta")
 	private Set<CondutaTecnica> tecnicas = new HashSet<>();
 	
 	public Conduta() {
 	}
 
-	public Conduta(Integer id, String nome, Sessao sessao) {
+	public Conduta(Integer id, String nome, Sessao sessao, Patologia patologia) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.sessao = sessao;
+		this.patologia = patologia;
 	}
 
-	public Conduta(Integer id, String nome) {
+	public Conduta(Integer id, String nome, Patologia patologia) {
 		super();
 		this.id = id;
 		this.nome = nome;
+		this.patologia = patologia;
 	}
 
 	public Integer getId() {
@@ -68,6 +77,14 @@ public class Conduta implements Serializable {
 
 	public void setSessao(Sessao sessao) {
 		this.sessao = sessao;
+	}
+
+	public Patologia getPatologia() {
+		return patologia;
+	}
+
+	public void setPatologia(Patologia patologia) {
+		this.patologia = patologia;
 	}
 
 	public Set<CondutaTecnica> getTecnicas() {

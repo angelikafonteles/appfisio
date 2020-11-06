@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pi2.appfisio.domain.Conduta;
+import com.pi2.appfisio.domain.Patologia;
 import com.pi2.appfisio.domain.Sessao;
 import com.pi2.appfisio.repositories.CondutaRepository;
 import com.pi2.appfisio.services.exceptios.ObjectNotFoundException;
@@ -50,7 +51,7 @@ public class CondutaService {
 	}
 	
 	public Conduta fromConduta(Conduta obj) {
-		return new Conduta(obj.getId(), obj.getNome(), new Sessao());
+		return new Conduta(obj.getId(), obj.getNome(), new Sessao(), new Patologia());
 	}
 		
 }

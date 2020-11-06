@@ -31,6 +31,9 @@ public class Patologia implements Serializable{
 	@OneToMany(mappedBy="patologia")
 	private List<Anamnese> anamneses = new ArrayList<>();
 	
+	@OneToMany(mappedBy="patologia")
+	private List<Conduta> condutas = new ArrayList<>();
+	
 	public Patologia() {
 	}
 
@@ -71,6 +74,14 @@ public class Patologia implements Serializable{
 
 	public void setAnamneses(List<Anamnese> anamneses) {
 		this.anamneses = anamneses;
+	}
+
+	public List<Conduta> getCondutas() {
+		return condutas;
+	}
+
+	public void setCondutas(List<Conduta> condutas) {
+		this.condutas = condutas;
 	}
 
 	@Override
