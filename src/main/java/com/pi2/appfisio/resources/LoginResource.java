@@ -15,24 +15,31 @@ import com.pi2.appfisio.services.LoginService;
 @RestController
 @RequestMapping(value = "logins")
 public class LoginResource {
-	
+
 	@Autowired
 	private LoginService service;
 
-	@RequestMapping(value="/{id}", method=RequestMethod.GET)
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) {
-		Login obj = service.findById(id);		
+		Login obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
-	
+
+	@RequestMapping(value = "/{email}/{senha}", method = RequestMethod.GET)
+	public ResponseEntity<?> find(@PathVariable String email, @PathVariable String senha) {
+		Login obj = service.findByLoginSenha(email, senha);
+
+		return ResponseEntity.ok().body(obj);
+	}
+
 	@PostMapping
 	public ResponseEntity<Login> createNew(@RequestBody Login obj) {
-	    Login savedObj = service.save(obj);
-	    return ResponseEntity.ok(savedObj);
+		Login savedObj = service.save(obj);
+		return ResponseEntity.ok(savedObj);
 	}
-	
-	@RequestMapping(value="/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<Void> deleteById(@PathVariable Integer id){
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Void> deleteById(@PathVariable Integer id) {
 		service.deleteById(id);
 		return ResponseEntity.noContent().build();
 	}
