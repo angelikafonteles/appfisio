@@ -157,16 +157,8 @@ public class Paciente implements Serializable {
 		return anamneses;
 	}
 
-	public void setAnamneses(List<Anamnese> anamneses) {
-		this.anamneses = anamneses;
-	}
-
 	public List<Sessao> getSessoes() {
 		return sessoes;
-	}
-
-	public void setSessoes(List<Sessao> sessoes) {
-		this.sessoes = sessoes;
 	}
 
 	@Override

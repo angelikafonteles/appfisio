@@ -66,10 +66,6 @@ public class Tecnica implements Serializable {
 		return tecnicas;
 	}
 
-	public void setTecnicas(Set<CondutaTecnica> tecnicas) {
-		this.tecnicas = tecnicas;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;

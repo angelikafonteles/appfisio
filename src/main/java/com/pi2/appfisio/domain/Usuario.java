@@ -102,10 +102,6 @@ public class Usuario implements Serializable{
 		return pacientes;
 	}
 
-	public void setPacientes(List<Paciente> pacientes) {
-		this.pacientes = pacientes;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -54,10 +54,6 @@ public class Estado implements Serializable{
 		return cidades;
 	}
 
-	public void setCidades(List<Cidade> cidades) {
-		this.cidades = cidades;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;

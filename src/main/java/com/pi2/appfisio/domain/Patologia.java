@@ -72,16 +72,8 @@ public class Patologia implements Serializable{
 		return anamneses;
 	}
 
-	public void setAnamneses(List<Anamnese> anamneses) {
-		this.anamneses = anamneses;
-	}
-
 	public List<Conduta> getCondutas() {
 		return condutas;
-	}
-
-	public void setCondutas(List<Conduta> condutas) {
-		this.condutas = condutas;
 	}
 
 	@Override
