@@ -138,7 +138,7 @@ public class AppfisioApplication implements CommandLineRunner {
 		usuarioRepository.saveAll(Arrays.asList(user1));
 		loginRepository.saveAll(Arrays.asList(login1));
 	
-		Paciente pcte1 = new Paciente(null, "123.456.789-00", "Darth Vader", sdf.parse("01/04/1954"), Genero.MASCULINO, "darth@nasa.com", "Comandante", new Endereco(), user1);
+		Paciente pcte1 = new Paciente(null, "123.456.789-00", "Darth Vader", sdf.parse("01/04/1954"), Genero.MASCULINO, "darth@nasa.com", "Comandante", user1);
 		
 		pcte1.getTelefones().addAll(Arrays.asList("99999999"));
 		

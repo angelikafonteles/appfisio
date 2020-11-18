@@ -57,7 +57,7 @@ public class PacienteService {
 	
 	public Paciente fromPaciente(Paciente obj) {
 		return new Paciente(obj.getId(), obj.getNome(), obj.getCpf(), obj.getDataNascimento(), obj.getGenero(), obj.getEmail(),
-				obj.getProfissao(), new Endereco(), new Usuario());
+				obj.getProfissao(), new Usuario());
 	}
 		
 }

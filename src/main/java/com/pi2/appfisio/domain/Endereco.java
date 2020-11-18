@@ -2,16 +2,14 @@ package com.pi2.appfisio.domain;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Endereco implements Serializable {
@@ -30,8 +28,8 @@ public class Endereco implements Serializable {
 	@JoinColumn(name="cidade_id")
 	private Cidade cidade;
 	
-	@JsonIgnore
-	@OneToOne(cascade=CascadeType.ALL, mappedBy="endereco")
+	@OneToOne
+	@MapsId
 	private Paciente paciente;
 	
 	public Endereco() {

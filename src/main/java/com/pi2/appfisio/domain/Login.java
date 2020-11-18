@@ -2,11 +2,11 @@ package com.pi2.appfisio.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -19,19 +19,10 @@ public class Login implements Serializable{
 	private String email;
 	private String senha;
 	
-	@OneToOne
-	@JoinColumn(name="usuario_id")
+	@OneToOne(mappedBy="login", cascade=CascadeType.ALL)
 	private Usuario usuario;
 	
 	public Login() {
-	}
-
-	public Login(Integer id, String email, String senha, Usuario usuario) {
-		super();
-		this.id = id;
-		this.email = email;
-		this.senha = senha;
-		this.usuario = usuario;
 	}
 
 	public Login(Integer id, String email, String senha) {

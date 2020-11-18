@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -42,8 +43,7 @@ public class Paciente implements Serializable {
 	@CollectionTable(name="TELEFONE")
 	private Set<String> telefones = new HashSet<>();
 	
-	@OneToOne
-	@JoinColumn(name="endereco_id")
+	@OneToOne(mappedBy="paciente", cascade=CascadeType.ALL)
 	private Endereco endereco;
 	
 	@JsonIgnore
@@ -60,7 +60,7 @@ public class Paciente implements Serializable {
 	public Paciente() {
 	}
 
-	public Paciente(Integer id, String cpf, String nome, Date dataNascimento, Genero genero, String email, String profissao, Endereco endereco, Usuario usuario) {
+	public Paciente(Integer id, String cpf, String nome, Date dataNascimento, Genero genero, String email, String profissao, Usuario usuario) {
 		super();
 		this.id = id;
 		this.cpf = cpf;
@@ -69,7 +69,6 @@ public class Paciente implements Serializable {
 		this.genero = genero.getCod();
 		this.email = email;
 		this.profissao = profissao;
-		this.endereco= endereco;
 		this.usuario = usuario;
 	}
 
