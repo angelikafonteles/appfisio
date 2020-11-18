@@ -1,10 +1,11 @@
 	package com.pi2.appfisio.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -26,26 +26,18 @@ public class Conduta implements Serializable {
 	private String nome;
 	
 	@JsonIgnore
-	@OneToOne(cascade=CascadeType.ALL, mappedBy="conduta")
-	private Sessao sessao;
-	
-	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="patologia_id")
 	private Patologia patologia;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="conduta")
+	private List<Sessao> sessoes = new ArrayList<>();
 	
 	@OneToMany(mappedBy="id.conduta")
 	private Set<CondutaTecnica> tecnicas = new HashSet<>();
 	
 	public Conduta() {
-	}
-
-	public Conduta(Integer id, String nome, Sessao sessao, Patologia patologia) {
-		super();
-		this.id = id;
-		this.nome = nome;
-		this.sessao = sessao;
-		this.patologia = patologia;
 	}
 
 	public Conduta(Integer id, String nome, Patologia patologia) {
@@ -71,20 +63,16 @@ public class Conduta implements Serializable {
 		this.nome = nome;
 	}
 
-	public Sessao getSessao() {
-		return sessao;
-	}
-
-	public void setSessao(Sessao sessao) {
-		this.sessao = sessao;
-	}
-
 	public Patologia getPatologia() {
 		return patologia;
 	}
 
 	public void setPatologia(Patologia patologia) {
 		this.patologia = patologia;
+	}
+
+	public List<Sessao> getSessoes() {
+		return sessoes;
 	}
 
 	public Set<CondutaTecnica> getTecnicas() {

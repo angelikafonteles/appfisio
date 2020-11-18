@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.pi2.appfisio.domain.Conduta;
 import com.pi2.appfisio.domain.Patologia;
-import com.pi2.appfisio.domain.Sessao;
 import com.pi2.appfisio.repositories.CondutaRepository;
 import com.pi2.appfisio.services.exceptios.ObjectNotFoundException;
 
@@ -46,12 +45,11 @@ public class CondutaService {
 	
 	private void updateData(Conduta newObj, Conduta obj) {
 		newObj.setNome(obj.getNome());
-		newObj.setSessao(obj.getSessao());
 	
 	}
 	
 	public Conduta fromConduta(Conduta obj) {
-		return new Conduta(obj.getId(), obj.getNome(), new Sessao(), new Patologia());
+		return new Conduta(obj.getId(), obj.getNome(), new Patologia());
 	}
 		
 }

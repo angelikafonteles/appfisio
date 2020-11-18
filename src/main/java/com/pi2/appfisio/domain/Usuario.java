@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Usuario implements Serializable{
@@ -29,6 +30,7 @@ public class Usuario implements Serializable{
 	private Date dataNascimento;
 	private String orgaoDeClasse;
 	
+	@JsonIgnore
 	@OneToOne
 	@MapsId
 	private Login login;

@@ -194,6 +194,8 @@ public class AppfisioApplication implements CommandLineRunner {
 		
 		Sessao s1 = new Sessao(null, sdf.parse("13/10/2020"), pcte1, conduta1);
 		
+		conduta1.getSessoes().addAll(Arrays.asList(s1));
+		
 		sessaoRepository.saveAll(Arrays.asList(s1));
 		
 	}

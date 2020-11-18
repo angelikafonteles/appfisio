@@ -71,7 +71,8 @@ public class Patologia implements Serializable{
 	public List<Anamnese> getAnamneses() {
 		return anamneses;
 	}
-
+	
+	@JsonIgnore
 	public List<Conduta> getCondutas() {
 		return condutas;
 	}
