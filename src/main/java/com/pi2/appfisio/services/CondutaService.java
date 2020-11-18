@@ -18,7 +18,6 @@ public class CondutaService {
 	private CondutaRepository repo;
 	
 	public Conduta findById(Integer id) {
-		
 		Optional<Conduta> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Conduta.class.getName()));
@@ -28,12 +27,11 @@ public class CondutaService {
 		return repo.findAll();
 	}
 	
-	public Conduta save(Conduta obj){
+	public Conduta insert(Conduta obj){
         return repo.save(obj);
     }
 	
 	public void deleteById(Integer id) {
-	
 		repo.deleteById(id);
 	}
 	

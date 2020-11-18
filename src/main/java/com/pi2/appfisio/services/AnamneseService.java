@@ -19,7 +19,6 @@ public class AnamneseService {
 	private AnamneseRepository repo;
 	
 	public Anamnese findById(Integer id) {
-		
 		Optional<Anamnese> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Anamnese.class.getName()));
@@ -29,12 +28,11 @@ public class AnamneseService {
 		return repo.findAll();
 	}
 	
-	public Anamnese save(Anamnese obj){
+	public Anamnese insert(Anamnese obj){
         return repo.save(obj);
     }
 	
 	public void deleteById(Integer id) {
-	
 		repo.deleteById(id);
 	}
 	

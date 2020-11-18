@@ -176,7 +176,7 @@ public class AppfisioApplication implements CommandLineRunner {
 		
 		tecnicaRepository.saveAll(Arrays.asList(t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12));
 		
-		Conduta conduta1 = new Conduta(null, "Traumato fav", p3);
+		Conduta conduta1 = new Conduta(null, "Traumato I", p3);
 		
 		p3.getCondutas().addAll(Arrays.asList(conduta1));
 		

@@ -31,6 +31,7 @@ public class Patologia implements Serializable{
 	@OneToMany(mappedBy="patologia")
 	private List<Anamnese> anamneses = new ArrayList<>();
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="patologia")
 	private List<Conduta> condutas = new ArrayList<>();
 	
@@ -72,7 +73,6 @@ public class Patologia implements Serializable{
 		return anamneses;
 	}
 	
-	@JsonIgnore
 	public List<Conduta> getCondutas() {
 		return condutas;
 	}

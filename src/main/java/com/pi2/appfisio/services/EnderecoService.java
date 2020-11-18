@@ -18,18 +18,16 @@ public class EnderecoService {
 	private EnderecoRepository repo;
 	
 	public Endereco findById(Integer id) {
-		
 		Optional<Endereco> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Endereco.class.getName()));
 	}
 	
-	public Endereco save(Endereco obj){
+	public Endereco insert(Endereco obj){
         return repo.save(obj);
     }
 	
 	public void deleteById(Integer id) {
-	
 		repo.deleteById(id);
 	}
 	

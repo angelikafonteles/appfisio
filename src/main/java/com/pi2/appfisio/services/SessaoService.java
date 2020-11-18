@@ -19,7 +19,6 @@ public class SessaoService {
 	private SessaoRepository repo;
 	
 	public Sessao findById(Integer id) {
-		
 		Optional<Sessao> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Sessao.class.getName()));
@@ -29,12 +28,11 @@ public class SessaoService {
 		return repo.findAll();
 	}
 	
-	public Sessao save(Sessao obj){
+	public Sessao insert(Sessao obj){
         return repo.save(obj);
     }
 	
 	public void deleteById(Integer id) {
-	
 		repo.deleteById(id);
 	}
 	

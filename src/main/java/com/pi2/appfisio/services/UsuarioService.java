@@ -18,7 +18,6 @@ public class UsuarioService {
 	private UsuarioRepository repo;
 	
 	public Usuario findById(Integer id) {
-		
 		Optional<Usuario> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Usuario.class.getName()));
@@ -28,12 +27,11 @@ public class UsuarioService {
 		return repo.findAll();
 	}
 	
-	public Usuario save(Usuario obj){
+	public Usuario insert(Usuario obj){
         return repo.save(obj);
     }
 	
 	public void deleteById(Integer id) {
-	
 		repo.deleteById(id);
 	}
 	

@@ -16,25 +16,22 @@ public class LoginService {
 	private LoginRepository repo;
 
 	public Login findById(Integer id) {
-
 		Optional<Login> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Login.class.getName()));
 	}
 
-	public Login findByLoginSenha(String email, String senha) {
-
-		Optional<Login> obj = repo.findByLoginSenha(email, senha);
+	public Login findByLoginPass(String email, String senha) {
+		Optional<Login> obj = repo.findByLoginPass(email, senha);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Email: " + email + " Senha:" + senha + ", Tipo: " + Login.class.getName()));
 	}
 
-	public Login save(Login obj) {
+	public Login insert(Login obj) {
 		return repo.save(obj);
 	}
 
 	public void deleteById(Integer id) {
-
 		repo.deleteById(id);
 	}
 

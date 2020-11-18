@@ -17,7 +17,6 @@ public class PatologiaService {
 	private PatologiaRepository repo;
 	
 	public Patologia findById(Integer id) {
-		
 		Optional<Patologia> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Patologia.class.getName()));
@@ -27,12 +26,11 @@ public class PatologiaService {
 		return repo.findAll();
 	}
 	
-	public Patologia save(Patologia obj){
+	public Patologia insert(Patologia obj){
         return repo.save(obj);
     }
 	
 	public void deleteById(Integer id) {
-	
 		repo.deleteById(id);
 	}
 		

@@ -9,6 +9,6 @@ import com.pi2.appfisio.domain.Login;
 @Repository
 public interface LoginRepository extends JpaRepository<Login, Integer> {
     @Query(value = "select * from login where email = ?1 and senha = ?2", nativeQuery = true)
-    Optional<Login> findByLoginSenha(String email, String senha);
+    Optional<Login> findByLoginPass(String email, String senha);
     
 }

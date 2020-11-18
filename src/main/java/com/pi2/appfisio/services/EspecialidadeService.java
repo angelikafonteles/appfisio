@@ -17,7 +17,6 @@ public class EspecialidadeService {
 	private EspecialidadeRepository repo;
 	
 	public Especialidade findById(Integer id) {
-		
 		Optional<Especialidade> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Especialidade.class.getName()));
@@ -27,12 +26,11 @@ public class EspecialidadeService {
 		return repo.findAll();
 	}
 	
-	public Especialidade save(Especialidade obj){
+	public Especialidade insert(Especialidade obj){
         return repo.save(obj);
     }
 	
 	public void deleteById(Integer id) {
-	
 		repo.deleteById(id);
 	}
 }

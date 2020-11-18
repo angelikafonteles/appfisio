@@ -25,7 +25,6 @@ public class Conduta implements Serializable {
 	private Integer id;
 	private String nome;
 	
-	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="patologia_id")
 	private Patologia patologia;
