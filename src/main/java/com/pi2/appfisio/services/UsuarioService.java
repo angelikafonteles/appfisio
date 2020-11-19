@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.pi2.appfisio.domain.Login;
 import com.pi2.appfisio.domain.Usuario;
 import com.pi2.appfisio.repositories.UsuarioRepository;
 import com.pi2.appfisio.services.exceptios.ObjectNotFoundException;
@@ -31,26 +30,22 @@ public class UsuarioService {
         return repo.save(obj);
     }
 	
-	public void deleteById(Integer id) {
+	public void delete(Integer id) {
 		repo.deleteById(id);
 	}
 	
-	public Usuario updateById(Usuario obj) {
-		Usuario newObj = findById(obj.getId());
-		updateData(newObj, obj);
-		return repo.save(newObj);
+	public Usuario update(Integer id, Usuario obj) {
+		Usuario entity = repo.getOne(id);
+		updateData(entity, obj);
+		return repo.save(entity);
 	}
 	
-	private void updateData(Usuario newObj, Usuario obj) {
-		newObj.setNome(obj.getNome());
-		newObj.setCpf(obj.getCpf());
-		newObj.setDataNascimento(obj.getDataNascimento());
-		newObj.setOrgaoDeClasse(obj.getOrgaoDeClasse());
+	private void updateData(Usuario entity, Usuario obj) {
+		entity.setNome(obj.getNome());
+		entity.setCpf(obj.getCpf());
+		entity.setDataNascimento(obj.getDataNascimento());
+		entity.setOrgaoDeClasse(obj.getOrgaoDeClasse());
 	
-	}
-	
-	public Usuario fromUsuario(Usuario obj) {
-		return new Usuario(obj.getId(), obj.getNome(), obj.getCpf(), obj.getDataNascimento(), obj.getOrgaoDeClasse(), new Login());
 	}
 		
 }

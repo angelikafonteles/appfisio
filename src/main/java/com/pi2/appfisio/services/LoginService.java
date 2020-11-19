@@ -31,7 +31,7 @@ public class LoginService {
 		return repo.save(obj);
 	}
 
-	public void deleteById(Integer id) {
+	public void delete(Integer id) {
 		repo.deleteById(id);
 	}
 

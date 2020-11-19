@@ -6,8 +6,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.pi2.appfisio.domain.Conduta;
-import com.pi2.appfisio.domain.Paciente;
 import com.pi2.appfisio.domain.Sessao;
 import com.pi2.appfisio.repositories.SessaoRepository;
 import com.pi2.appfisio.services.exceptios.ObjectNotFoundException;
@@ -32,24 +30,20 @@ public class SessaoService {
         return repo.save(obj);
     }
 	
-	public void deleteById(Integer id) {
+	public void delete(Integer id) {
 		repo.deleteById(id);
 	}
 	
-	public Sessao updateById(Sessao obj) {
-		Sessao newObj = findById(obj.getId());
-		updateData(newObj, obj);
-		return repo.save(newObj);
+	public Sessao update(Integer id, Sessao obj) {
+		Sessao entity = repo.getOne(id);
+		updateData(entity, obj);
+		return repo.save(entity);
 	}
 	
-	private void updateData(Sessao newObj, Sessao obj) {
-		newObj.setData(obj.getData());
-		newObj.setObservacoes(obj.getObservacoes());
+	private void updateData(Sessao entity, Sessao obj) {
+		entity.setData(obj.getData());
+		entity.setObservacoes(obj.getObservacoes());
 	
-	}
-	
-	public Sessao fromSessao(Sessao obj) {
-		return new Sessao(obj.getId(), obj.getData(), obj.getObservacoes(), new Paciente(), new Conduta());
 	}
 		
 }

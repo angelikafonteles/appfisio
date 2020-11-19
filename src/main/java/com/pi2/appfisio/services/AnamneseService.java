@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pi2.appfisio.domain.Anamnese;
-import com.pi2.appfisio.domain.Paciente;
-import com.pi2.appfisio.domain.Patologia;
 import com.pi2.appfisio.repositories.AnamneseRepository;
 import com.pi2.appfisio.services.exceptios.ObjectNotFoundException;
 
@@ -32,32 +30,25 @@ public class AnamneseService {
         return repo.save(obj);
     }
 	
-	public void deleteById(Integer id) {
+	public void delete(Integer id) {
 		repo.deleteById(id);
 	}
 	
-	public Anamnese updateById(Anamnese obj) {
-		Anamnese newObj = findById(obj.getId());
-		updateData(newObj, obj);
-		return repo.save(newObj);
+	public Anamnese update(Integer id, Anamnese obj) {
+		Anamnese entity = repo.getOne(id);
+		updateData(entity, obj);
+		return repo.save(entity);
 	}
 	
-	private void updateData(Anamnese newObj, Anamnese obj) {
-		newObj.setDataDaFicha(obj.getDataDaFicha());
-		newObj.setPressaoArterial(obj.getPressaoArterial());
-		newObj.setFrequenciaCardiaca(obj.getFrequenciaCardiaca());
-		newObj.setHistoricoFamiliar(obj.getHistoricoFamiliar());
-		newObj.setHistoriaPatologiaPregressa(obj.getHistoriaPatologiaPregressa());
-		newObj.setHistoricoDoencaAtual(obj.getHistoricoDoencaAtual());
-		newObj.setQueixaPrincipal(obj.getQueixaPrincipal());
-		newObj.setObservacoes(obj.getObservacoes());
+	private void updateData(Anamnese entity, Anamnese obj) {
+		entity.setDataDaFicha(obj.getDataDaFicha());
+		entity.setPressaoArterial(obj.getPressaoArterial());
+		entity.setFrequenciaCardiaca(obj.getFrequenciaCardiaca());
+		entity.setHistoricoFamiliar(obj.getHistoricoFamiliar());
+		entity.setHistoriaPatologiaPregressa(obj.getHistoriaPatologiaPregressa());
+		entity.setHistoricoDoencaAtual(obj.getHistoricoDoencaAtual());
+		entity.setQueixaPrincipal(obj.getQueixaPrincipal());
+		entity.setObservacoes(obj.getObservacoes());
 	
 	}
-	
-	public Anamnese fromAnamnese(Anamnese obj) {
-		return new Anamnese(obj.getId(), obj.getDataDaFicha(), obj.getPressaoArterial(), obj.getFrequenciaCardiaca(), obj.getHistoricoFamiliar(),
-				obj.getHistoriaPatologiaPregressa(), obj.getHistoricoDoencaAtual(), obj.getQueixaPrincipal(), obj.getObservacoes(),
-				new Paciente(), new Patologia());
-	}
-		
 }

@@ -30,8 +30,19 @@ public class PatologiaService {
         return repo.save(obj);
     }
 	
-	public void deleteById(Integer id) {
+	public void delete(Integer id) {
 		repo.deleteById(id);
+	}
+	
+	public Patologia update(Integer id, Patologia obj) {
+		Patologia entity = repo.getOne(id);
+		updateData(entity, obj);
+		return repo.save(entity);
+	}
+	
+	private void updateData(Patologia entity, Patologia obj) {
+		entity.setNome(obj.getNome());
+	
 	}
 		
 }

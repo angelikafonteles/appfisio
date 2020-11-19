@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pi2.appfisio.domain.Paciente;
-import com.pi2.appfisio.domain.Usuario;
 import com.pi2.appfisio.repositories.PacienteRepository;
 import com.pi2.appfisio.services.exceptios.ObjectNotFoundException;
 
@@ -31,30 +30,24 @@ public class PacienteService {
         return repo.save(obj);
     }
 	
-	public void deleteById(Integer id) {
+	public void delete(Integer id) {
 		repo.deleteById(id);
 	}
 	
-	public Paciente updateById(Paciente obj) {
-		Paciente newObj = findById(obj.getId());
-		updateData(newObj, obj);
-		return repo.save(newObj);
+	public Paciente update(Integer id, Paciente obj) {
+		Paciente entity = repo.getOne(id);
+		updateData(entity, obj);
+		return repo.save(entity);
 	}
 	
-	private void updateData(Paciente newObj, Paciente obj) {
-		newObj.setNome(obj.getNome());
-		newObj.setCpf(obj.getCpf());
-		newObj.setDataNascimento(obj.getDataNascimento());
-		newObj.setGenero(obj.getGenero());
-		newObj.setEmail(obj.getEmail());
-		newObj.setProfissao(obj.getProfissao());
-		newObj.setTelefones(obj.getTelefones());
+	private void updateData(Paciente entity, Paciente obj) {
+		entity.setNome(obj.getNome());
+		entity.setCpf(obj.getCpf());
+		entity.setDataNascimento(obj.getDataNascimento());
+		entity.setGenero(obj.getGenero());
+		entity.setEmail(obj.getEmail());
+		entity.setProfissao(obj.getProfissao());
+		entity.setTelefones(obj.getTelefones());
 	
 	}
-	
-	public Paciente fromPaciente(Paciente obj) {
-		return new Paciente(obj.getId(), obj.getNome(), obj.getCpf(), obj.getDataNascimento(), obj.getGenero(), obj.getEmail(),
-				obj.getProfissao(), new Usuario());
-	}
-		
 }

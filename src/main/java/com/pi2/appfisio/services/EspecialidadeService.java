@@ -30,7 +30,18 @@ public class EspecialidadeService {
         return repo.save(obj);
     }
 	
-	public void deleteById(Integer id) {
+	public void delete(Integer id) {
 		repo.deleteById(id);
+	}
+	
+	public Especialidade update(Integer id, Especialidade obj) {
+		Especialidade entity = repo.getOne(id);
+		updateData(entity, obj);
+		return repo.save(entity);
+	}
+	
+	private void updateData(Especialidade entity, Especialidade obj) {
+		entity.setNome(obj.getNome());
+	
 	}
 }

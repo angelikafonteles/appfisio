@@ -32,15 +32,15 @@ public class Especialidade implements Serializable{
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-	public String getEspecialidade() {
+	
+	public String getNome() {
 		return nome;
 	}
 
-	public void setEspecialidade(String nome) {
+	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pi2.appfisio.domain.Conduta;
-import com.pi2.appfisio.domain.Patologia;
 import com.pi2.appfisio.repositories.CondutaRepository;
 import com.pi2.appfisio.services.exceptios.ObjectNotFoundException;
 
@@ -31,23 +30,18 @@ public class CondutaService {
         return repo.save(obj);
     }
 	
-	public void deleteById(Integer id) {
+	public void delete(Integer id) {
 		repo.deleteById(id);
 	}
 	
-	public Conduta updateById(Conduta obj) {
-		Conduta newObj = findById(obj.getId());
-		updateData(newObj, obj);
-		return repo.save(newObj);
+	public Conduta update(Integer id, Conduta obj) {
+		Conduta entity = repo.getOne(id);
+		updateData(entity, obj);
+		return repo.save(entity);
 	}
 	
-	private void updateData(Conduta newObj, Conduta obj) {
-		newObj.setNome(obj.getNome());
+	private void updateData(Conduta entity, Conduta obj) {
+		entity.setNome(obj.getNome());
 	
 	}
-	
-	public Conduta fromConduta(Conduta obj) {
-		return new Conduta(obj.getId(), obj.getNome(), new Patologia());
-	}
-		
 }
