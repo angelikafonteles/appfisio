@@ -1,6 +1,7 @@
 package com.pi2.appfisio;
 
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.TimeZone;
 
@@ -192,7 +193,7 @@ public class AppfisioApplication implements CommandLineRunner {
 		
 		condutaTecnicaRepository.saveAll(Arrays.asList(ct1,ct2));
 		
-		Sessao s1 = new Sessao(null, sdf.parse("13/10/2020"), pcte1, conduta1);
+		Sessao s1 = new Sessao(null, Instant.parse("2020-10-20T10:53:07Z"), pcte1, conduta1);
 		
 		conduta1.getSessoes().addAll(Arrays.asList(s1));
 		

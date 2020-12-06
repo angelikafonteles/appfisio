@@ -3,12 +3,17 @@ package com.pi2.appfisio.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.pi2.appfisio.domain.Conduta;
 import com.pi2.appfisio.repositories.CondutaRepository;
-import com.pi2.appfisio.services.exceptios.ObjectNotFoundException;
+import com.pi2.appfisio.services.exceptios.DatabaseException;
+import com.pi2.appfisio.services.exceptios.ResourceNotFoundException;
 
 @Service
 public class CondutaService {
@@ -18,8 +23,7 @@ public class CondutaService {
 	
 	public Conduta findById(Integer id) {
 		Optional<Conduta> obj = repo.findById(id);
-		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado! Id: " + id + ", Tipo: " + Conduta.class.getName()));
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
 	public List<Conduta> findAll(){
@@ -31,13 +35,23 @@ public class CondutaService {
     }
 	
 	public void delete(Integer id) {
-		repo.deleteById(id);
+		try {
+			repo.deleteById(id);
+		} catch(EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException(id);
+		} catch(DataIntegrityViolationException e) {
+			throw new DatabaseException(e.getMessage());
+		}
 	}
 	
 	public Conduta update(Integer id, Conduta obj) {
-		Conduta entity = repo.getOne(id);
-		updateData(entity, obj);
-		return repo.save(entity);
+		try{
+			Conduta entity = repo.getOne(id);
+			updateData(entity, obj);
+			return repo.save(entity);
+			}catch(EntityNotFoundException e) {
+				throw new  ResourceNotFoundException(id);
+			}
 	}
 	
 	private void updateData(Conduta entity, Conduta obj) {

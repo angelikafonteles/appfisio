@@ -3,11 +3,15 @@ package com.pi2.appfisio.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.pi2.appfisio.domain.Login;
 import com.pi2.appfisio.repositories.LoginRepository;
+import com.pi2.appfisio.services.exceptios.DatabaseException;
 import com.pi2.appfisio.services.exceptios.ObjectNotFoundException;
+import com.pi2.appfisio.services.exceptios.ResourceNotFoundException;
 
 @Service
 public class LoginService {
@@ -17,8 +21,7 @@ public class LoginService {
 
 	public Login findById(Integer id) {
 		Optional<Login> obj = repo.findById(id);
-		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado! Id: " + id + ", Tipo: " + Login.class.getName()));
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 
 	public Login findByLoginPass(String email, String senha) {
@@ -32,7 +35,13 @@ public class LoginService {
 	}
 
 	public void delete(Integer id) {
-		repo.deleteById(id);
+		try {
+			repo.deleteById(id);
+		} catch(EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException(id);
+		} catch(DataIntegrityViolationException e) {
+			throw new DatabaseException(e.getMessage());
+		}
 	}
 
 }

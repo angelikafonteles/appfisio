@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.pi2.appfisio.domain.Tecnica;
 import com.pi2.appfisio.repositories.TecnicaRepository;
-import com.pi2.appfisio.services.exceptios.ObjectNotFoundException;
+import com.pi2.appfisio.services.exceptios.ResourceNotFoundException;
 
 @Service
 public class TecnicaService {
@@ -18,8 +18,7 @@ public class TecnicaService {
 	
 	public Tecnica findById(Integer id) {
 		Optional<Tecnica> obj = repo.findById(id);
-		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado! Id: " + id + ", Tipo: " + Tecnica.class.getName()));
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
 	public List<Tecnica> findAll(){

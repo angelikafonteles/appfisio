@@ -3,12 +3,17 @@ package com.pi2.appfisio.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.pi2.appfisio.domain.Anamnese;
 import com.pi2.appfisio.repositories.AnamneseRepository;
-import com.pi2.appfisio.services.exceptios.ObjectNotFoundException;
+import com.pi2.appfisio.services.exceptios.DatabaseException;
+import com.pi2.appfisio.services.exceptios.ResourceNotFoundException;
 
 @Service
 public class AnamneseService {
@@ -18,8 +23,7 @@ public class AnamneseService {
 	
 	public Anamnese findById(Integer id) {
 		Optional<Anamnese> obj = repo.findById(id);
-		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado! Id: " + id + ", Tipo: " + Anamnese.class.getName()));
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
 	public List<Anamnese> findAll(){
@@ -31,13 +35,23 @@ public class AnamneseService {
     }
 	
 	public void delete(Integer id) {
-		repo.deleteById(id);
+		try {
+			repo.deleteById(id);
+		} catch(EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException(id);
+		} catch(DataIntegrityViolationException e) {
+			throw new DatabaseException(e.getMessage());
+		}
 	}
 	
 	public Anamnese update(Integer id, Anamnese obj) {
-		Anamnese entity = repo.getOne(id);
-		updateData(entity, obj);
-		return repo.save(entity);
+		try{
+			Anamnese entity = repo.getOne(id);
+			updateData(entity, obj);
+			return repo.save(entity);
+			}catch(EntityNotFoundException e) {
+				throw new  ResourceNotFoundException(id);
+			}
 	}
 	
 	private void updateData(Anamnese entity, Anamnese obj) {
