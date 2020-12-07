@@ -131,13 +131,16 @@ public class AppfisioApplication implements CommandLineRunner {
 		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
 		
 		Login login1 = new Login(null, "fabio@gmail.com", "123456");
+		Login login2 = new Login(null, "adriana@gmail.com", "654321");
 		
 		Usuario user1 = new Usuario(null, "Fabio", "345343123-98", sdf.parse("01/01/1983"), "123ED23", login1);
+		Usuario user2 = new Usuario(null, "Adriana", "123123123-12", sdf.parse("01/01/1980"), "13DF234", login2);
 		
 		login1.setUsuario(user1);
+		login2.setUsuario(user2);
 		
-		usuarioRepository.saveAll(Arrays.asList(user1));
-		loginRepository.saveAll(Arrays.asList(login1));
+		usuarioRepository.saveAll(Arrays.asList(user1,user2));
+		loginRepository.saveAll(Arrays.asList(login1,login2));
 	
 		Paciente pcte1 = new Paciente(null, "123.456.789-00", "Darth Vader", sdf.parse("01/04/1954"), Genero.MASCULINO, "darth@nasa.com", "Comandante", user1);
 		
