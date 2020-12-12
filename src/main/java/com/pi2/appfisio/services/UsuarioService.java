@@ -10,7 +10,9 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.pi2.appfisio.domain.Login;
 import com.pi2.appfisio.domain.Usuario;
+import com.pi2.appfisio.dto.UsuarioDTO;
 import com.pi2.appfisio.repositories.UsuarioRepository;
 import com.pi2.appfisio.services.exceptios.DatabaseException;
 import com.pi2.appfisio.services.exceptios.ResourceNotFoundException;
@@ -29,11 +31,7 @@ public class UsuarioService {
 	public List<Usuario> findAll(){
 		return repo.findAll();
 	}
-	
-	public Usuario insert(Usuario obj){
-        return repo.save(obj);
-    }
-	
+		
 	public void delete(Integer id) {
 		try {
 			repo.deleteById(id);
@@ -44,13 +42,13 @@ public class UsuarioService {
 		}
 	}
 	
-	public Usuario update(Integer id, Usuario obj) {
+	public Usuario update(Usuario obj) {
 		try{
-			Usuario entity = repo.getOne(id);
+			Usuario entity = findById(obj.getId());
 			updateData(entity, obj);
 			return repo.save(entity);
 			}catch(EntityNotFoundException e) {
-				throw new  ResourceNotFoundException(id);
+				throw new  ResourceNotFoundException(obj.getId());
 			}
 	}
 	
@@ -59,5 +57,8 @@ public class UsuarioService {
 		entity.setDataNascimento(obj.getDataNascimento());
 	
 	}
-		
+	
+	public Usuario fromDTO(UsuarioDTO objDto) {
+		return new Usuario(objDto.getId(), objDto.getNome(), null, objDto.getDataNascimento(), null, new Login());
+	}
 }

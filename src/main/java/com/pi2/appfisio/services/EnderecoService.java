@@ -9,7 +9,9 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.pi2.appfisio.domain.Cidade;
 import com.pi2.appfisio.domain.Endereco;
+import com.pi2.appfisio.dto.EnderecoDTO;
 import com.pi2.appfisio.repositories.EnderecoRepository;
 import com.pi2.appfisio.services.exceptios.DatabaseException;
 import com.pi2.appfisio.services.exceptios.ResourceNotFoundException;
@@ -24,10 +26,6 @@ public class EnderecoService {
 		Optional<Endereco> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
-	
-	public Endereco insert(Endereco obj){
-        return repo.save(obj);
-    }
 	
 	public void delete(Integer id) {
 		try {
@@ -55,7 +53,12 @@ public class EnderecoService {
 		entity.setComplemento(obj.getComplemento());
 		entity.setBairro(obj.getBairro());
 		entity.setCep(obj.getCep());
+		entity.setCidade(obj.getCidade());
 	
 	}
-		
+	
+	public Endereco fromDTO(EnderecoDTO objDto) {
+		Cidade cidade = new Cidade(objDto.getCidadeId(), null, null);
+		return new Endereco(objDto.getId(), objDto.getLogradouro(), objDto.getNumero(), objDto.getComplemento(), objDto.getBairro(), objDto.getCep(), cidade, null);
+	}
 }

@@ -2,6 +2,7 @@ package com.pi2.appfisio.resources;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.pi2.appfisio.domain.Patologia;
+import com.pi2.appfisio.dto.PatologiaDTO;
 import com.pi2.appfisio.services.PatologiaService;
 
 @RestController
@@ -32,9 +34,10 @@ public class PatologiaResource {
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<Patologia>> findAll(){
+	public ResponseEntity<List<PatologiaDTO>> findAll(){
 		List<Patologia> list = service.findAll();
-		return ResponseEntity.ok().body(list);
+		List<PatologiaDTO> listDto = list.stream().map(obj -> new PatologiaDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto);
 	}
 	
 	@PostMapping

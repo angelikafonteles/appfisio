@@ -66,7 +66,7 @@ public class Paciente implements Serializable {
 		this.cpf = cpf;
 		this.nome = nome;
 		this.dataNascimento = dataNascimento;
-		this.genero = genero.getCod();
+		this.genero = (genero == null) ? null : genero.getCod();
 		this.email = email;
 		this.profissao = profissao;
 		this.usuario = usuario;

@@ -2,6 +2,7 @@ package com.pi2.appfisio.resources;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.pi2.appfisio.domain.Conduta;
+import com.pi2.appfisio.dto.CondutaDTO;
 import com.pi2.appfisio.services.CondutaService;
 
 @RestController
@@ -32,9 +34,10 @@ public class CondutaResource {
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<Conduta>> findAll(){
+	public ResponseEntity<List<CondutaDTO>> findAll(){
 		List<Conduta> list = service.findAll();
-		return ResponseEntity.ok().body(list);
+		List<CondutaDTO> listDto = list.stream().map(obj -> new CondutaDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto);
 	}
 	
 	@PostMapping

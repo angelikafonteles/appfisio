@@ -34,7 +34,7 @@ public class Tecnica implements Serializable {
 	public Tecnica(Integer id, TecnicaTerapeutica nome) {
 		super();
 		this.id = id;
-		this.nome = nome.getCod();
+		this.nome = (nome == null) ? null : nome.getCod();
 	}
 	
 	@JsonIgnore

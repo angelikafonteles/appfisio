@@ -8,6 +8,8 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.pi2.appfisio.domain.Login;
+import com.pi2.appfisio.domain.Usuario;
+import com.pi2.appfisio.dto.PerfilDTO;
 import com.pi2.appfisio.repositories.LoginRepository;
 import com.pi2.appfisio.services.exceptios.DatabaseException;
 import com.pi2.appfisio.services.exceptios.ObjectNotFoundException;
@@ -42,6 +44,13 @@ public class LoginService {
 		} catch(DataIntegrityViolationException e) {
 			throw new DatabaseException(e.getMessage());
 		}
+	}
+	
+	public Login perfilDTO(PerfilDTO objDto) {
+		Login login = findById(objDto.getId());
+		Usuario user = new Usuario(null, objDto.getNome(), objDto.getCpf(), objDto.getDataNascimento(), objDto.getOrgaoDeClasse(), login);
+		login.setUsuario(user);
+		return login;
 	}
 
 }
