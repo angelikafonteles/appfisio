@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.pi2.appfisio.domain.Cidade;
 import com.pi2.appfisio.domain.Endereco;
@@ -43,6 +44,7 @@ public class PacienteService {
 		return repo.findAll();
 	}
 	
+	@Transactional
 	public Paciente insert(Paciente obj){
 		obj.setId(null);
 		obj = repo.save(obj);
