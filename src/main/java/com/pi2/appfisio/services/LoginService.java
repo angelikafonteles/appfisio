@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.pi2.appfisio.domain.Login;
 import com.pi2.appfisio.domain.Usuario;
+import com.pi2.appfisio.dto.LoginNewDTO;
 import com.pi2.appfisio.dto.PerfilDTO;
 import com.pi2.appfisio.repositories.LoginRepository;
 import com.pi2.appfisio.services.exceptios.DatabaseException;
@@ -33,9 +34,10 @@ public class LoginService {
 	}
 
 	public Login insert(Login obj) {
-		return repo.save(obj);
+		obj = repo.save(obj);
+		return obj;
 	}
-
+	
 	public void delete(Integer id) {
 		try {
 			repo.deleteById(id);
@@ -44,6 +46,10 @@ public class LoginService {
 		} catch(DataIntegrityViolationException e) {
 			throw new DatabaseException(e.getMessage());
 		}
+	}
+	
+	public Login fromDTO(LoginNewDTO objDto) {
+		return new Login(null, objDto.getEmail(), objDto.getSenha());
 	}
 	
 	public Login perfilDTO(PerfilDTO objDto) {

@@ -3,23 +3,38 @@ package com.pi2.appfisio.dto;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.validation.constraints.NotEmpty;
+
 public class AnamneseNewDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 
 	private Integer id;
-
 	private Date dataDaFicha;
+	
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String pressaoArterial;
+	
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String frequenciaCardiaca;
+	
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String historicoFamiliar;
+	
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String historiaPatologiaPregressa;
+	
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String historicoDoencaAtual;
+	
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String queixaPrincipal;
 	private String observacoes;
 	
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String patologia;
 	
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String especialidade;
 	
 	private Integer pacienteId;

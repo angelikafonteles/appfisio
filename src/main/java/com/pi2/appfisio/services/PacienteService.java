@@ -16,8 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.pi2.appfisio.domain.Cidade;
 import com.pi2.appfisio.domain.Endereco;
+import com.pi2.appfisio.domain.Estado;
 import com.pi2.appfisio.domain.Paciente;
 import com.pi2.appfisio.domain.Usuario;
+import com.pi2.appfisio.domain.enums.EstadoTipo;
 import com.pi2.appfisio.domain.enums.Genero;
 import com.pi2.appfisio.dto.PacienteDTO;
 import com.pi2.appfisio.dto.PacienteNewDTO;
@@ -37,6 +39,18 @@ public class PacienteService {
 	public Paciente findById(Integer id) {
 		Optional<Paciente> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
+
+	}
+	
+	public Paciente findByCpf(String cpf) {
+		Optional<Paciente> obj = repo.findByCpf(cpf);
+		return obj.orElseThrow(() -> new ResourceNotFoundException(cpf));
+
+	}
+	
+	public Paciente findByName(String nome) {
+		Optional<Paciente> obj = repo.findByNome(nome);
+		return obj.orElseThrow(() -> new ResourceNotFoundException(nome));
 
 	}
 	
@@ -96,7 +110,8 @@ public class PacienteService {
 	public Paciente fromDTO(PacienteNewDTO objDto) {
 		Usuario user =new Usuario(objDto.getUsuarioId(), null, null, null, null, null);
 		Paciente pac = new Paciente(null, objDto.getCpf(), objDto.getNome(), objDto.getDataNascimento(), Genero.toEnum(objDto.getGenero()), objDto.getEmail(), objDto.getProfissao(), user);
-		Cidade cid = new Cidade(objDto.getCidadeId(), null, null);
+		Estado estado = new Estado(null, EstadoTipo.toEnum(objDto.getEstadoId()));
+		Cidade cid = new Cidade(objDto.getCidadeId(), null, estado);
 		Endereco end = new Endereco(null, objDto.getLogradouro(), objDto.getNumero(), objDto.getComplemento(), objDto.getBairro(), objDto.getCep(), cid, pac);
 		pac.setEndereco(end);
 		pac.getTelefones().add(objDto.getTelefone1());

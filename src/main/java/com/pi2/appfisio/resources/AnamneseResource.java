@@ -56,7 +56,7 @@ public class AnamneseResource {
 	}
 	
 	@PutMapping(value="/{id}")
-	public ResponseEntity<Anamnese> update(@PathVariable Integer id, @RequestBody Anamnese obj){
+	public ResponseEntity<Anamnese> update(@PathVariable Integer id, @Valid @RequestBody Anamnese obj){
 		obj = service.update(id, obj);
 		return ResponseEntity.ok().body(obj);
 	}

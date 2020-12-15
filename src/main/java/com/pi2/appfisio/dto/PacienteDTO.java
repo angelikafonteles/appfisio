@@ -23,8 +23,11 @@ public class PacienteDTO implements Serializable {
 	@NotEmpty(message="Preenchimento obrigatório")
 	@Email(message="Email inválido")
 	private String email;
+	
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String profissao;
 	
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String telefone1;
 	private String telefone2;
 	private String telefone3;

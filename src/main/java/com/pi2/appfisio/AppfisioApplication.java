@@ -27,6 +27,7 @@ import com.pi2.appfisio.domain.Patologia;
 import com.pi2.appfisio.domain.Sessao;
 import com.pi2.appfisio.domain.Tecnica;
 import com.pi2.appfisio.domain.Usuario;
+import com.pi2.appfisio.domain.enums.EstadoTipo;
 import com.pi2.appfisio.domain.enums.Genero;
 import com.pi2.appfisio.domain.enums.TecnicaTerapeutica;
 import com.pi2.appfisio.repositories.AnamneseRepository;
@@ -117,8 +118,8 @@ public class AppfisioApplication implements CommandLineRunner {
 		especialidadeRepository.saveAll(Arrays.asList(esp1, esp2));
 		patologiaRepository.saveAll(Arrays.asList(p1, p2, p3, p4));
 
-		Estado est1 = new Estado(null, "Pernambuco");
-		Estado est2 = new Estado(null, "Galaxy");
+		Estado est1 = new Estado(null, EstadoTipo.PE);
+		Estado est2 = new Estado(null, EstadoTipo.CE);
 
 		Cidade c1 = new Cidade(null, "Recife", est1);
 		Cidade c2 = new Cidade(null, "Olinda", est1);
@@ -133,8 +134,8 @@ public class AppfisioApplication implements CommandLineRunner {
 		Login login1 = new Login(null, "fabio@gmail.com", "123456");
 		Login login2 = new Login(null, "adriana@gmail.com", "654321");
 		
-		Usuario user1 = new Usuario(null, "Fabio", "345343123-98", sdf.parse("01/01/1983"), "123ED23", login1);
-		Usuario user2 = new Usuario(null, "Adriana", "123123123-12", sdf.parse("01/01/1980"), "13DF234", login2);
+		Usuario user1 = new Usuario(null, "Fabio", "82326313500", sdf.parse("01/01/1983"), "123ED23", login1);
+		Usuario user2 = new Usuario(null, "Adriana", "84717327349", sdf.parse("01/01/1980"), "13DF234", login2);
 		
 		login1.setUsuario(user1);
 		login2.setUsuario(user2);
@@ -142,7 +143,7 @@ public class AppfisioApplication implements CommandLineRunner {
 		usuarioRepository.saveAll(Arrays.asList(user1,user2));
 		loginRepository.saveAll(Arrays.asList(login1,login2));
 	
-		Paciente pcte1 = new Paciente(null, "123.456.789-00", "Darth Vader", sdf.parse("01/04/1954"), Genero.MASCULINO, "darth@nasa.com", "Comandante", user1);
+		Paciente pcte1 = new Paciente(null, "89735492199", "Darth Vader", sdf.parse("01/04/1954"), Genero.MASCULINO, "darth@nasa.com", "Comandante", user1);
 		
 		pcte1.getTelefones().addAll(Arrays.asList("99999999"));
 		

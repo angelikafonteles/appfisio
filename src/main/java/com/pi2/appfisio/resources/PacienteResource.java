@@ -38,6 +38,18 @@ public class PacienteResource {
 		return ResponseEntity.ok().body(obj);
 	}
 	
+	@GetMapping(value="/cpf/{cpf}")
+	public ResponseEntity<Paciente> findByCpf(@PathVariable String cpf) {
+		Paciente obj = service.findByCpf(cpf);		
+		return ResponseEntity.ok().body(obj);
+	}
+	
+	@GetMapping(value="/nome/{nome}")
+	public ResponseEntity<Paciente> findByName(@PathVariable String nome) {
+		Paciente obj = service.findByName(nome);		
+		return ResponseEntity.ok().body(obj);
+	}
+	
 	@GetMapping
 	public ResponseEntity<List<PacienteDTO>> findAll(){
 		List<Paciente> list = service.findAll();

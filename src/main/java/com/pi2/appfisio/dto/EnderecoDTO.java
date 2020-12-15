@@ -2,19 +2,29 @@ package com.pi2.appfisio.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotEmpty;
+
 import com.pi2.appfisio.domain.Endereco;
 
 public class EnderecoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
+	
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String logradouro;
+	
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String numero;
 	private String complemento;
 	private String bairro;
+	
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String cep;
 	
 	private Integer cidadeId;
+	
+	private Integer estadoId;
 	
 	public EnderecoDTO() {
 	}
@@ -27,6 +37,7 @@ public class EnderecoDTO implements Serializable {
 		bairro = obj.getBairro();
 		cep = obj.getCep();
 		cidadeId = obj.getCidade().getId();
+		estadoId = obj.getCidade().getEstado().getId();
 		
 	}
 	
@@ -85,5 +96,14 @@ public class EnderecoDTO implements Serializable {
 	public void setCidadeId(Integer cidadeId) {
 		this.cidadeId = cidadeId;
 	}
+
+	public Integer getEstadoId() {
+		return estadoId;
+	}
+
+	public void setEstadoId(Integer estadoId) {
+		this.estadoId = estadoId;
+	}
+	
 
 }

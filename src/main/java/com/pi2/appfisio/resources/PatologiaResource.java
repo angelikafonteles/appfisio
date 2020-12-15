@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -41,7 +43,7 @@ public class PatologiaResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Patologia> insert(@RequestBody Patologia obj){
+	public ResponseEntity<Patologia> insert(@Valid @RequestBody Patologia obj){
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(obj.getId()).toUri();
@@ -55,7 +57,7 @@ public class PatologiaResource {
 	}
 	
 	@PutMapping(value="/{id}")
-	public ResponseEntity<Patologia> update(@PathVariable Integer id, @RequestBody Patologia obj){
+	public ResponseEntity<Patologia> update(@PathVariable Integer id, @Valid @RequestBody Patologia obj){
 		obj = service.update(id, obj);
 		return ResponseEntity.ok().body(obj);
 	}

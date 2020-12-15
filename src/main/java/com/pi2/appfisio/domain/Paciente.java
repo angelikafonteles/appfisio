@@ -9,6 +9,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,12 +31,16 @@ public class Paciente implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
+	
+	@Column(unique=true)
 	private String cpf;
 	private String nome;
 	
 	@JsonFormat(pattern="dd/MM/yyyy")
 	private Date dataNascimento;
 	private Integer genero;
+	
+	@Column(unique=true)
 	private String email;
 	private String profissao;
 	

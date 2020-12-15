@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.pi2.appfisio.domain.Login;
+import com.pi2.appfisio.dto.LoginNewDTO;
 import com.pi2.appfisio.dto.PerfilDTO;
 import com.pi2.appfisio.services.LoginService;
 
@@ -39,7 +40,8 @@ public class LoginResource {
 	}
 
 	@PostMapping
-	public ResponseEntity<Login> insert(@Valid @RequestBody Login obj){
+	public ResponseEntity<Login> insert(@Valid @RequestBody LoginNewDTO objDto){
+		Login obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(obj.getId()).toUri();

@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.pi2.appfisio.domain.enums.EstadoTipo;
 
 @Entity
 public class Estado implements Serializable{
@@ -19,7 +20,7 @@ public class Estado implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	private String nome;
+	private Integer estado;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy="estado")
@@ -28,10 +29,10 @@ public class Estado implements Serializable{
 	public Estado() {
 	}
 
-	public Estado(Integer id, String nome) {
+	public Estado(Integer id, EstadoTipo estado) {
 		super();
 		this.id = id;
-		this.nome = nome;
+		this.estado = (estado == null) ? null : estado.getCod();
 	}
 
 	public Integer getId() {
@@ -42,12 +43,12 @@ public class Estado implements Serializable{
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public EstadoTipo getEstadoTipo() {
+		return EstadoTipo.toEnum(estado);
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setEstadoTipo(EstadoTipo estado) {
+		this.estado = estado.getCod();
 	}
 
 	public List<Cidade> getCidades() {

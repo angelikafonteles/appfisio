@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -43,7 +45,7 @@ public class SessaoResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Sessao> insert(@RequestBody Sessao obj){
+	public ResponseEntity<Sessao> insert(@Valid @RequestBody Sessao obj){
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(obj.getId()).toUri();
@@ -57,7 +59,7 @@ public class SessaoResource {
 	}
 	
 	@PutMapping(value="/{id}")
-	public ResponseEntity<Sessao> update(@PathVariable Integer id, @RequestBody Sessao obj){
+	public ResponseEntity<Sessao> update(@PathVariable Integer id, @Valid @RequestBody Sessao obj){
 		obj = service.update(id, obj);
 		return ResponseEntity.ok().body(obj);
 	}
