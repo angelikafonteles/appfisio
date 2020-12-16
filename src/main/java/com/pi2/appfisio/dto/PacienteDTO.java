@@ -9,7 +9,9 @@ import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 
 import com.pi2.appfisio.domain.Paciente;
+import com.pi2.appfisio.services.validations.PacienteUpdate;
 
+@PacienteUpdate
 public class PacienteDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
