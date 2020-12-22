@@ -1,7 +1,7 @@
 package com.pi2.appfisio.dto;
 
 import java.io.Serializable;
-import java.time.Instant;
+import java.util.Date;
 
 import com.pi2.appfisio.domain.Sessao;
 
@@ -9,7 +9,7 @@ public class SessaoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
-	private Instant instante;
+	private Date data;
 	private String observacoes;
 	
 	public SessaoDTO() {
@@ -17,7 +17,7 @@ public class SessaoDTO implements Serializable {
 	
 	public SessaoDTO(Sessao obj) {
 		id = obj.getId();
-		instante = obj.getInstante();
+		data = obj.getData();
 		observacoes = obj.getObservacoes();
 	}
 
@@ -29,12 +29,12 @@ public class SessaoDTO implements Serializable {
 		this.id = id;
 	}
 
-	public Instant getInstante() {
-		return instante;
+	public Date getData() {
+		return data;
 	}
 
-	public void setInstante(Instant instante) {
-		this.instante = instante;
+	public void setData(Date data) {
+		this.data = data;
 	}
 
 	public String getObservacoes() {

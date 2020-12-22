@@ -1,5 +1,6 @@
 package com.pi2.appfisio.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,8 +13,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.pi2.appfisio.domain.Sessao;
+import com.pi2.appfisio.repositories.CondutaRepository;
+import com.pi2.appfisio.repositories.PacienteRepository;
 import com.pi2.appfisio.repositories.SessaoRepository;
 import com.pi2.appfisio.services.exceptios.DatabaseException;
 import com.pi2.appfisio.services.exceptios.ResourceNotFoundException;
@@ -24,6 +28,18 @@ public class SessaoService {
 	@Autowired
 	private SessaoRepository repo;
 	
+	@Autowired
+	private PacienteService pacienteService;
+	
+	@Autowired
+	private PacienteRepository pacienteRepo;
+	
+	@Autowired
+	private CondutaService condutaService;
+	
+	@Autowired
+	private CondutaRepository condutaRepo;
+	
 	public Sessao findById(Integer id) {
 		Optional<Sessao> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
@@ -32,9 +48,17 @@ public class SessaoService {
 	public List<Sessao> findAll(){
 		return repo.findAll();
 	}
-	
+	//erro
+	@Transactional
 	public Sessao insert(Sessao obj){
-        return repo.save(obj);
+		obj.setData(new Date());
+		obj.setObservacoes(obj.getObservacoes());
+		obj = repo.save(obj);
+		obj.setConduta(condutaService.findById(obj.getConduta().getId()));
+		obj.setPaciente(pacienteService.findById(obj.getPaciente().getId()));
+		pacienteRepo.save(obj.getPaciente());
+		condutaRepo.save(obj.getConduta());
+        return obj;
     }
 	
 	public void delete(Integer id) {
@@ -58,7 +82,7 @@ public class SessaoService {
 	}
 	
 	private void updateData(Sessao entity, Sessao obj) {
-		entity.setInstante(obj.getInstante());
+		entity.setData(obj.getData());
 		entity.setObservacoes(obj.getObservacoes());
 	
 	}

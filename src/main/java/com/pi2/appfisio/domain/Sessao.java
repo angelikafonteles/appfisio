@@ -1,7 +1,7 @@
 package com.pi2.appfisio.domain;
 
 import java.io.Serializable;
-import java.time.Instant;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,8 +21,8 @@ public class Sessao implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm:ss'Z'", timezone="GMT")
-	private Instant instante;
+	@JsonFormat(pattern="dd/MM/yyyy")
+	private Date data;
 	private String observacoes;
 	
 	@JsonIgnore
@@ -37,10 +37,10 @@ public class Sessao implements Serializable {
 	public Sessao() {
 	}
 
-	public Sessao(Integer id, Instant instante, Paciente paciente, Conduta conduta) {
+	public Sessao(Integer id, Date data, Paciente paciente, Conduta conduta) {
 		super();
 		this.id = id;
-		this.instante = instante;
+		this.data = data;
 		this.paciente = paciente;
 		this.conduta = conduta;
 	}
@@ -52,13 +52,13 @@ public class Sessao implements Serializable {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-	public Instant getInstante() {
-		return instante;
+	
+	public Date getData() {
+		return data;
 	}
 
-	public void setInstante(Instant instante) {
-		this.instante = instante;
+	public void setData(Date data) {
+		this.data = data;
 	}
 
 	public String getObservacoes() {

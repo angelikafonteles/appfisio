@@ -14,7 +14,6 @@ public class CondutaTecnica implements Serializable{
 	@JsonIgnore
 	@EmbeddedId
 	private CondutaTecnicaPK id = new CondutaTecnicaPK();
-	
 	private String descricao;
 	
 	public CondutaTecnica() {
@@ -32,8 +31,16 @@ public class CondutaTecnica implements Serializable{
 		return id.getConduta();
 	}
 	
+	public void setConduta(Conduta conduta) {
+		id.setConduta(conduta);
+	}
+	
 	public Tecnica getTecnica() {
 		return id.getTecnica();
+	}
+	
+	public void setTecnica(Tecnica tecnica) {
+		id.setTecnica(tecnica);
 	}
 
 	public CondutaTecnicaPK getId() {
